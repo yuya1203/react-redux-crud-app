@@ -1,4 +1,5 @@
 // actionとはjavascriptのオブジェクトのこと
+// actionのタイプを管理→タイプをreducerに渡す
 export const INCREMENT = 'INCREMENT'
 export const DECREMENT = 'DECREMENT'
 
