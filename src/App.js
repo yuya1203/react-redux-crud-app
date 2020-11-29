@@ -1,5 +1,5 @@
-// import React, {Component} from 'react';
-import React from 'react';
+import React, {Component} from 'react';
+// import React from 'react';
 import PropTypes from 'prop-types';
 
 // import Reactはjsxをトランスパイル後にReact.createElememntを使用して仮装domを描画するのでjsxを使う場合には必須
@@ -11,6 +11,43 @@ import PropTypes from 'prop-types';
 // componentは二種類
 // ->関数コンポーネントとクラスコンポーネント
 // jsx内でjsを使用するときは{}でくくる
+// props -> 親のコンポーネントから値を渡される, 変更不可能なイミュータブルな値
+// state -> コンポーネント内で値を保持する, 変更可能なミュータブルな値
+// プログラミングにおいて余計なコードは書かない、使っていないなら消す
+
+
+const App = () => (<Counter></Counter>)
+
+class Counter extends Component {
+  constructor(props) {
+    super(props)
+    console.log(this.state)
+    this.state = { count: 0 }
+  }
+
+  handlePlusButton = () => {
+    // this.state = { count: this.state.count } 直接stateをいじるのはNG -> いじるときは必ずsetStateを経由する
+    // setStateを実行するとrenderが自動で実行され再描画してくれる(callbackで実行してくれる)、setStateを使わないと描画する処理も別で書かなければならない→そのためsetStateを経由する
+    this.setState({ count: this.state.count +1 })
+  }
+
+  handleMinusButton = () => {
+    this.setState({ count: this.state.count -1})
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <div>Count: {this.state.count}</div>
+        <button onClick={this.handlePlusButton}>+1</button>
+        <button onClick={this.handleMinusButton}>-1</button>
+      </React.Fragment>
+    )
+  }
+}
+
+
+
 
 
 // class App extends Component {
@@ -30,36 +67,36 @@ import PropTypes from 'prop-types';
 //   }
 // }
 
-const App = () => {
-  // return <div>Hi!</div>
-  const profiles = [
-    { name: "Taro", age: 10 },
-    { name: "Hanako", age: 5 },
-    { name: "Noname", age: 3 },
-  ]
-  return (
-    <div>
-      {
-        profiles.map((profile, index) => {
-          return <User name={profile.name} age={profile.age} key={index} />
-        })
-      }
-      {/* <User name={"Taoro"} age={10}/>
-      <User name={"Hanako"} age={5}/> */}
-    </div>
-  )
-}
+// const App = () => {
+//   // return <div>Hi!</div>
+//   // const profiles = [
+//   //   { name: "Taro", age: 10 },
+//   //   { name: "Hanako", age: 5 },
+//   //   { name: "Noname", age: 3 },
+//   // ]
+//   return (
+//     <div>
+//       {
+//         profiles.map((profile, index) => {
+//           return <User name={profile.name} age={profile.age} key={index} />
+//         })
+//       }
+//       {/* <User name={"Taoro"} age={10}/>
+//       <User name={"Hanako"} age={5}/> */}
+//     </div>
+//   )
+// }
 
-const User = (props) => {
-  return <div>Hi, I am {props.name}!!!!, and {props.age} years old!</div>
-}
+// const User = (props) => {
+//   return <div>Hi, I am {props.name}!!!!, and {props.age} years old!</div>
+// }
 
 // propsに対する方チェックを行う（validation)
 
-User.propTypes = {
-  name: PropTypes.string,
-  age: PropTypes.number.isRequired,
-}
+// User.propTypes = {
+//   name: PropTypes.string,
+//   age: PropTypes.number.isRequired,
+// }
 
 // propsに初期値を指定できる(defaultProps)
 // User.defaultProps = {
