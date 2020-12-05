@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux'; // storeに必要, reduxでmiddlewareを使用できるようにする
 import { Provider } from 'react-redux'// 作成したstoreを全コンポーネントに渡すもの
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import './index.css';
 import reducer from './reducers';
 import EventsIndex from './components/events_index';
@@ -19,17 +20,19 @@ const store = createStore(reducer, enhancer)
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/events/new" component={EventsNew} />
-          <Route path="/events/:id" component={EventsShow} />
-          <Route exact path="/" component={EventsIndex} />
-          <Route exact path="/events" component={EventsIndex} />
-        </Switch>
-      </BrowserRouter>
-      {/* <EventsIndex /> */}
-    </Provider>
+    <MuiThemeProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/events/new" component={EventsNew} />
+            <Route path="/events/:id" component={EventsShow} />
+            <Route exact path="/" component={EventsIndex} />
+            <Route exact path="/events" component={EventsIndex} />
+          </Switch>
+        </BrowserRouter>
+        {/* <EventsIndex /> */}
+        </Provider>
+      </MuiThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
