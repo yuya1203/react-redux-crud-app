@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux'; // storeに必要
+import { createStore, applyMiddleware } from 'redux'; // storeに必要, reduxでmiddlewareを使用できるようにする
 import { Provider } from 'react-redux'// 作成したstoreを全コンポーネントに渡すもの
 import './index.css';
 import reducer from './reducers';
-import App from './components/App';
+import App from './components/events_index';
 import reportWebVitals from './reportWebVitals';
+import thunk from 'redux-thunk' // reduxで非同期処理を実装できる(middleware)
 
-const store = createStore(reducer)
+const store = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>
